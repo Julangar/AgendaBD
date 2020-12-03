@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <table border="1">
+            <tr>
+                <th>Citas</th>
+                <th>Contacto</th>
+                <th>Lugar</th>
+                <th colspan="2">Fecha y hora</th>
+                <th>Descripcion</th>
+            </tr>
+            {%for u in citas%}
+            <tr>
+                <td>{{u[0]}}</td>
+                <td>{{u[1]}}</td>
+                <td>{{u[2]}}</td>
+                <td>{{u[3]}}</td>
+                <td>{{u[4]}}</td>
+                <td>{{u[5]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
