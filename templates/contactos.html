@@ -1,26 +1,27 @@
 <!DOCTYPE html>
+<link href="estilos.css" rel="stylesheet" type="text/css">
 <html>
     <head></head>
-    <body>
-        <table border="1">
+    <body class="fondo">
+        <table>
             <tr>
-                <th>Contactos</th>
-                <th>Usuario</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Direccion</th>
-                <th>Telefono</th>
-                <th>Correo</th>
+                <th class="table">Contactos</th>
+                <th class="table">Usuario</th>
+                <th class="table">Nombre</th>
+                <th class="table"> Apellido</th>
+                <th class="table">Direccion</th>
+                <th class="table">Telefono</th>
+                <th class="table">Correo</th>
             </tr>
             {%for u in contactos%}
             <tr>
-                <td>{{u[0]}}</td>
-                <td>{{u[1]}}</td>
-                <td>{{u[2]}}</td>
-                <td>{{u[3]}}</td>
-                <td>{{u[4]}}</td>
-                <td>{{u[5]}}</td>
-                <td>{{u[6]}}</td>
+                <td class="table">{{u[0]}}</td>
+                <td class="table">{{u[1]}}</td>
+                <td class="table">{{u[2]}}</td>
+                <td class="table">{{u[3]}}</td>
+                <td class="table">{{u[4]}}</td>
+                <td class="table">{{u[5]}}</td>
+                <td class="table">{{u[6]}}</td>
             </tr>
             {% endfor %}
         </table>

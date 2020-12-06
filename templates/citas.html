@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+<link href="estilos.css" rel="stylesheet" type="text/css">
 <html>
     <head></head>
-    <body>
-        <table border="1">
+    <body class="fondo">
+        <table>
             <tr>
-                <th>Citas</th>
-                <th>Contacto</th>
-                <th>Lugar</th>
-                <th colspan="2">Fecha y hora</th>
-                <th>Descripcion</th>
+                <th class="table">Citas</th>
+                <th class="table">Contacto</th>
+                <th class="table">Lugar</th>
+                <th class="table" colspan="2">Fecha y hora</th>
+                <th class="table">Descripcion</th>
             </tr>
             {%for u in citas%}
             <tr>
-                <td>{{u[0]}}</td>
-                <td>{{u[1]}}</td>
-                <td>{{u[2]}}</td>
-                <td>{{u[3]}}</td>
-                <td>{{u[4]}}</td>
-                <td>{{u[5]}}</td>
+                <td class="table">{{u[0]}}</td>
+                <td class="table">{{u[1]}}</td>
+                <td class="table">{{u[2]}}</td>
+                <td class="table">{{u[3]}}</td>
+                <td class="table">{{u[4]}}</td>
+                <td class="table">{{u[5]}}</td>
             </tr>
             {% endfor %}
         </table>
