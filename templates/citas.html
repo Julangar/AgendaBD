@@ -20,15 +20,12 @@
                 <td class="table">{{u[4]}}</td>
                 <td class="table">{{u[5]}}</td>
                 <td class="table">
-                    <form style="display: inline">
-                        <input type="hidden">
-                        <input type="submit" value="Modificar">
-                    </form>
+                    <button class="boton"><a href="{{ url_for('modcita') }}">Modificar Cita</a></button>
                 </td>
             </tr>
             {% endfor %}
         </table>
         <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
-        <button class="boton">Agregar Cita</button>
+        <button class="boton"><a href="{{ url_for('agregarcita') }}">Agregar Cita</a></button>
     </body>
 </html>

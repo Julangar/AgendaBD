@@ -45,16 +45,57 @@ def ver_todos():
     data = cursor.fetchall()
     return render_template('todos.html', citas = data)
 
-@app.route('/agregaru')
-def agregaru():
+@app.route('/agregarusuario')
+def agregarusuario():
     return render_template('agregaru.html')
 
-@app.route('/agregar')
-def agregar(name):
-    cursor.execute("INSERT INTO 'usuarios' ( 'usu_nombre', 'usu_clave') VALUES (name)")
+@app.route('/agregaru')
+def agregaru():
+    cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ('nombre', sha1('nombre'))")
     data = cursor.fetchall()
-    return redirect("/ver_usuarios")
+    return redirect("/usuarios")
 
+@app.route('/agregarcontacto')
+def agregarcontacto():
+    return render_template('agregarcon.html')
+
+@app.route('/agregarcon')
+def agregarcon():
+    cursor.execute("INSERT INTO `contactos`(`usu_id`, `con_nombre`, `con_apellido`, `con_direccion`, `con_telefono`, `con_email`)" +
+                    "VALUES (1,'Pepito','Perez','Cra 50 1g',3044050505, 'pepito@mail.com')")
+    data = cursor.fetchall()
+    return redirect("/contactos")
+
+@app.route('/modcontacto')
+def modcontacto():
+    return render_template('modcon.html')
+
+@app.route('/modcon')
+def modcon():
+    cursor.execute("UPDATE `contactos` SET `con_id`=[value-1],`usu_id`=[value-2],`con_nombre`=[value-3],`con_apellido`=[value-4],`con_direccion`=[value-5],`con_telefono`=[value-6],`con_email`=[value-7] WHERE 1")
+    data = cursor.fetchall()
+    return redirect("/contactos")
+
+@app.route('/agregarcita')
+def agregarcita():
+    return render_template('agregarcit.html')
+
+@app.route('/agregarcit')
+def agregarcit():
+    cursor.execute("INSERT INTO `citas`(`con_id`, `cit_lugar`, `cit_fecha`, `cit_hora`, `cit_descripcion`) "+ 
+                    "VALUES (1,'lugar','DD/MM/AAAA','00:00:00','descripcion')")
+    data = cursor.fetchall()
+    return redirect("/citas")
+
+@app.route('/modcita')
+def modcita():
+    return render_template('modcita.html')
+
+@app.route('/modcit')
+def modcit():
+    cursor.execute("UPDATE `citas` SET `cit_id`= 1,`con_id`=1,`cit_lugar`='lugar',`cit_fecha`='00/00/0000',`cit_hora`= '00:00:00',`cit_descripcion`= 'descripcion' WHERE `cit_id` = 8")
+    data = cursor.fetchall()
+    return redirect("/citas")
 
 if __name__ == '__main__':
     app.run(debug=True)

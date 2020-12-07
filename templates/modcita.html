@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
+<html>
+    <head></head>
+    <body class="fondo">
+        <p align="center">Por favor digite el id del contacto:  <input name="id_con" type="text"></p>
+        <p align="center">Por favor digite el lugar de la cita:  <input name="lugar" type="text"></p>
+        <p align="center">Por favor digite la fecha de la cita (DD/MM/AAAA):  <input name="fecha" type="text"></p>
+        <p align="center">Por favor digite la hora de la cita (HH:MM:SS):  <input name="hora" type="text"></p>
+        <p align="center">Por favor digite la descripcion de la cita:  <input name="descripcion" type="text"></p>
+        <button class="boton"><a href="{{ url_for('modcit') }}">Modificar Cita</a></button>
+    </body>
+</html>

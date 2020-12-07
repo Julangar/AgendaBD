@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
+<html>
+    <head></head>
+    <body class="fondo">
+        <p align="center">Por favor digite el id del usuario:  <input name="id_usu" type="text"></p>
+        <p align="center">Por favor digite el nombre del contacto:  <input name="nombre" type="text"></p>
+        <p align="center">Por favor digite el apellido del contacto:  <input name="apellido" type="text"></p>
+        <p align="center">Por favor digite la direccion:  <input name="direccion" type="text"></p>
+        <p align="center">Por favor digite el telefono:  <input name="telefono" type="text"></p>
+        <p align="center">Por favor digite el email del contacto:  <input name="email" type="text"></p>
+        <button class="boton"><a href="{{ url_for('modcon') }}">Modificar Contacto</a></button>
+    </body>
+</html>
