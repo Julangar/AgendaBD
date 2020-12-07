@@ -10,8 +10,16 @@
             {%for u in usuarios%}
             <tr>
                 <td class="table">{{u[1]}}</td>
+                <td class="table">
+                    <form style="display: inline">
+                        <input type="hidden">
+                        <input type="submit" value="Modificar">
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>
+        <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
+        <button class="boton">Agregar Usuario</button>
     </body>
 </html>

@@ -22,8 +22,16 @@
                 <td class="table">{{u[4]}}</td>
                 <td class="table">{{u[5]}}</td>
                 <td class="table">{{u[6]}}</td>
+                <td class="table">
+                    <form style="display: inline">
+                        <input type="hidden">
+                        <input type="submit" value="Modificar">
+                    </form>
+                </td>
             </tr>
             {% endfor %}
         </table>
+        <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
+        <button class="boton">Agregar Contacto</button>
     </body>
 </html>
