@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flaskext.mysql import MySQL
+
 
 app = Flask(__name__)
 mysql = MySQL()
@@ -43,6 +44,17 @@ def ver_todos():
                     "LEFT JOIN citas as cit on (con.con_id = cit.con_id)")
     data = cursor.fetchall()
     return render_template('todos.html', citas = data)
+
+@app.route('/agregaru')
+def agregaru():
+    return render_template('agregaru.html')
+
+@app.route('/agregar')
+def agregar(name):
+    cursor.execute("INSERT INTO 'usuarios' ( 'usu_nombre', 'usu_clave') VALUES (name)")
+    data = cursor.fetchall()
+    return redirect("/ver_usuarios")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

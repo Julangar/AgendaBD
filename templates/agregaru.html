@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
+<html>
+    <head></head>
+    <body class="fondo">
+        <p align="center">Por favor diigite su nombre:  <input name="nombre" type="text"></p>
+        <button class="boton"><a href="{{ url_for('agregar(nombre)' }}" href="{{ url_for('ver_usuarios') }}">Agregar Usuario</a></button>
+    </body>
+</html>
