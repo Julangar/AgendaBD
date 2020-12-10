@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
 <html>
-    <head></head>
+    <head>
+        <title>Agregar Usuario</title>
+    </head>
     <body class="fondo">
-        <p align="center">Por favor digite su nombre:  <input name="nombre" type="text"></p>
-        <button class="boton"><a href="{{ url_for('agregaru') }}">Agregar Usuario</a></button>
+        <form action = "{{request path}}" method="POST">
+            <label for = "nombre">Nombre</label>
+            <input type="text" id ="nombre" name ="nombre"/>
+            <label for = "clave">Clave</label>
+            <input type="text" id ="clave" name ="clave"/>
+            <input type="submit" value="Enviar">
+        </form>
     </body>
 </html>

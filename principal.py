@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flaskext.mysql import MySQL
 
 
@@ -45,13 +45,20 @@ def ver_todos():
     data = cursor.fetchall()
     return render_template('todos.html', citas = data)
 
-@app.route('/agregarusuario')
+@app.route('/agregarusuario', methods = ['GET','POST'])
 def agregarusuario():
-    return render_template('agregaru.html')
+    if request.method == 'POST':
+        nombre = request.form["nombre"]
+        clave = request.form["clave"]
+        cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ("+ nombre +", sha1("+ clave +"))")
+        conn.commit()
+        return redirect("/usuarios")
+    else:
+        return render_template('agregaru.html')
 
 @app.route('/agregaru')
 def agregaru():
-    cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ('nombre', sha1('nombre'))")
+    cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ('nombre', sha1('clave'))")
     data = cursor.fetchall()
     return redirect("/usuarios")
 
