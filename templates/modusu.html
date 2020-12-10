@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
 <html>
-    <head>
-        <title>Agregar Usuario</title>
-    </head>
+    <head></head>
     <body class="fondo">
         <form action = "{{request.path}}" method="POST">
+            <input type="hidden" id="id" name="id" value="{{ usuario[0] }}">
             <label for = "nombre">Nombre</label>
-            <input type="text" id ="nombre" name ="nombre"/><br>
+            <input type="text" id ="nombre" name ="nombre" value="{{ usuario[1]}}"/><br>
             <label for = "clave">Clave</label>
             <input type="password" id ="clave" name ="clave"/><br>
             <input type="submit" value="Enviar">

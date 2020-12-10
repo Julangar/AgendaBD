@@ -8,7 +8,7 @@
                 <th class="table">Contactos</th>
                 <th class="table">Usuario</th>
                 <th class="table">Nombre</th>
-                <th class="table"> Apellido</th>
+                <th class="table">Apellido</th>
                 <th class="table">Direccion</th>
                 <th class="table">Telefono</th>
                 <th class="table">Correo</th>
@@ -23,12 +23,13 @@
                 <td class="table">{{u[5]}}</td>
                 <td class="table">{{u[6]}}</td>
                 <td class="table">
-                    <button class="boton"><a href="{{ url_for('modcontacto') }}">Modificar Contacto</a></button>
+                    <button class="boton"><a href="/modcontacto?id={{u[0]}}">Editar</a></button>
+                    <button class="boton"><a href="/eliminarcontacto?id={{u[0]}}">Eliminar</a></button>
                 </td>
             </tr>
             {% endfor %}
         </table>
         <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
-        <button class="boton"><a href="{{ url_for('agregarcontacto') }}">Agregar Contacto</a></button>
+        <button class="boton"><a href="{{ url_for('agregar_contacto') }}">Agregar Contacto</a></button>
     </body>
 </html>

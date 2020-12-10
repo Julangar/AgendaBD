@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
 from flaskext.mysql import MySQL
 
 
@@ -46,42 +46,82 @@ def ver_todos():
     return render_template('todos.html', citas = data)
 
 @app.route('/agregarusuario', methods = ['GET','POST'])
-def agregarusuario():
+def agregar_usuario():
     if request.method == 'POST':
         nombre = request.form["nombre"]
         clave = request.form["clave"]
-        cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ("+ nombre +", sha1("+ clave +"))")
+        cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES (%s, sha1(%s))",(nombre,clave))
         conn.commit()
-        return redirect("/usuarios")
+        return redirect(url_for('ver_usuarios'))
     else:
         return render_template('agregaru.html')
 
-@app.route('/agregaru')
-def agregaru():
-    cursor.execute("INSERT INTO `usuarios`( `usu_nombre`, `usu_clave`) VALUES ('nombre', sha1('clave'))")
-    data = cursor.fetchall()
-    return redirect("/usuarios")
+@app.route('/modusuario', methods = ['GET','POST'])
+def mod_usuario():
+    if request.method == 'POST':
+        id = request.form["id"]
+        nombre = request.form["nombre"]
+        clave = request.form["clave"]
+        cursor.execute("UPDATE `usuarios` SET  `usu_nombre`=%s, `usu_clave`=sha1(%s) WHERE `usu_id`=%s",(nombre,clave,id))
+        conn.commit()
+        return redirect(url_for('ver_usuarios'))
+    else:
+        id = request.args["id"]
+        cursor.execute("SELECT usu_id, usu_nombre FROM usuarios WHERE usu_id = "+ id)
+        usuario = cursor.fetchone()
+        return render_template('modusu.html', usuario = usuario)
 
-@app.route('/agregarcontacto')
-def agregarcontacto():
-    return render_template('agregarcon.html')
+@app.route('/eliminarusuario')
+def eliminar_usuario():
+    if request.method == 'GET':
+        id = request.args["id"]
+        cursor.execute("DELETE FROM `usuarios` WHERE usu_id = "+ id)
+        conn.commit()
+        return redirect(url_for('ver_usuarios'))
 
-@app.route('/agregarcon')
-def agregarcon():
-    cursor.execute("INSERT INTO `contactos`(`usu_id`, `con_nombre`, `con_apellido`, `con_direccion`, `con_telefono`, `con_email`)" +
-                    "VALUES (1,'Pepito','Perez','Cra 50 1g',3044050505, 'pepito@mail.com')")
-    data = cursor.fetchall()
-    return redirect("/contactos")
+@app.route('/agregarcontacto', methods = ['GET','POST'])
+def agregar_contacto():
+    if request.method == 'POST':
+        usu_id = request.form["usu_id"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        direccion = request.form["direccion"]
+        telefono = request.form["telefono"] 
+        email = request.form["email"] 
+        cursor.execute("INSERT INTO `contactos`(`usu_id`, `con_nombre`, `con_apellido`, `con_direccion`, `con_telefono`, `con_email`)" +
+                    "VALUES (%s,%s,%s,%s,%s,%s)",(usu_id,nombre,apellido,direccion,telefono,email))
+        conn.commit()
+        return redirect(url_for('ver_contactos'))
+    else:
+        return render_template('agregarcon.html')
 
-@app.route('/modcontacto')
-def modcontacto():
-    return render_template('modcon.html')
 
-@app.route('/modcon')
-def modcon():
-    cursor.execute("UPDATE `contactos` SET `con_id`=[value-1],`usu_id`=[value-2],`con_nombre`=[value-3],`con_apellido`=[value-4],`con_direccion`=[value-5],`con_telefono`=[value-6],`con_email`=[value-7] WHERE 1")
-    data = cursor.fetchall()
-    return redirect("/contactos")
+@app.route('/modcontacto', methods = ['GET','POST'])
+def mod_contacto():
+    if request.method == 'POST':
+        id = request.form["id"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        direccion = request.form["direccion"]
+        telefono = request.form["telefono"] 
+        email = request.form["email"] 
+        cursor.execute("UPDATE `contactos` SET `con_nombre`=%s,`con_apellido`=%s,`con_direccion`=%s,`con_telefono`=%s,`con_email`=%s WHERE `con_id`=%s",(nombre,apellido,direccion,telefono,email,id))
+        conn.commit()
+        return redirect(url_for('ver_contactos'))
+    else:
+        id = request.args["id"]
+        cursor.execute("SELECT `usu_id`,`con_nombre`,`con_apellido`,`con_direccion`,`con_telefono`,`con_email` FROM contactos WHERE con_id = "+id)
+        contacto = cursor.fetchone()
+        return render_template('modcon.html', contacto = contacto)
+
+@app.route('/eliminarcontacto')
+def eliminar_contacto():
+    if request.method == 'GET':
+        id = request.args["id"]
+        cursor.execute("DELETE FROM `contactos` WHERE con_id = "+ id)
+        conn.commit()
+        return redirect(url_for('ver_contactos'))
+
 
 @app.route('/agregarcita')
 def agregarcita():
