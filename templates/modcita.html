@@ -3,11 +3,17 @@
 <html>
     <head></head>
     <body class="fondo">
-        <p align="center">Por favor digite el id del contacto:  <input name="id_con" type="text"></p>
-        <p align="center">Por favor digite el lugar de la cita:  <input name="lugar" type="text"></p>
-        <p align="center">Por favor digite la fecha de la cita (DD/MM/AAAA):  <input name="fecha" type="text"></p>
-        <p align="center">Por favor digite la hora de la cita (HH:MM:SS):  <input name="hora" type="text"></p>
-        <p align="center">Por favor digite la descripcion de la cita:  <input name="descripcion" type="text"></p>
-        <button class="boton"><a href="{{ url_for('modcit') }}">Modificar Cita</a></button>
+        <form action = "{{request.path}}" method="POST">
+            <input type="hidden" id="id" name="id" value="{{ cita[0] }}">
+            <label for = "lugar">Lugar</label>
+            <input type="text" id ="lugar" name ="lugar" value="{{ cita[2] }}"/><br>
+            <label for = "fecha">Fecha</label>
+            <input type="date" id ="fecha" name ="fecha" value="{{ cita[3] }}"/><br>
+            <label for = "hora">Hora</label>
+            <input type="text" id ="hora" name = "hora" value="{{ cita[4] }}"/><br>
+            <label for = "descripcion">Descripcion</label>
+            <input type="submit" value="Enviar">
+        </form>
+        <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
     </body>
 </html>

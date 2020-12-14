@@ -82,14 +82,14 @@ def eliminar_usuario():
 @app.route('/agregarcontacto', methods = ['GET','POST'])
 def agregar_contacto():
     if request.method == 'POST':
-        usu_id = request.form["usu_id"]
+        usuid = request.form["usuid"]
         nombre = request.form["nombre"]
         apellido = request.form["apellido"]
         direccion = request.form["direccion"]
         telefono = request.form["telefono"] 
         email = request.form["email"] 
         cursor.execute("INSERT INTO `contactos`(`usu_id`, `con_nombre`, `con_apellido`, `con_direccion`, `con_telefono`, `con_email`)" +
-                    "VALUES (%s,%s,%s,%s,%s,%s)",(usu_id,nombre,apellido,direccion,telefono,email))
+                    "VALUES (%s,%s,%s,%s,%s,%s)",(usuid,nombre,apellido,direccion,telefono,email))
         conn.commit()
         return redirect(url_for('ver_contactos'))
     else:
@@ -123,26 +123,47 @@ def eliminar_contacto():
         return redirect(url_for('ver_contactos'))
 
 
-@app.route('/agregarcita')
+@app.route('/agregarcita', methods = ['GET','POST'])
 def agregarcita():
-    return render_template('agregarcit.html')
+    if request.method == 'POST':
+        conid = request.form["conid"]
+        lugar = request.form["lugar"]
+        fecha = request.form["fecha"]
+        hora = request.form["hora"]
+        descripcion = request.form["descripcion"] 
+        cursor.execute("INSERT INTO `citas`(`con_id`, `cit_lugar`, `cit_fecha`, `cit_hora`, `cit_descripcion`)" +
+                    "VALUES (%s,%s,%s,%s,%s,%s)",(conid,lugar,fecha,hora,descripcion))
+        conn.commit()
+        return redirect(url_for('ver_citas'))
+    else:
+        return render_template('agregarcit.html')
 
-@app.route('/agregarcit')
-def agregarcit():
-    cursor.execute("INSERT INTO `citas`(`con_id`, `cit_lugar`, `cit_fecha`, `cit_hora`, `cit_descripcion`) "+ 
-                    "VALUES (1,'lugar','DD/MM/AAAA','00:00:00','descripcion')")
-    data = cursor.fetchall()
-    return redirect("/citas")
 
-@app.route('/modcita')
-def modcita():
-    return render_template('modcita.html')
-
-@app.route('/modcit')
+@app.route('/modcit', methoss = ['GET','POST'])
 def modcit():
-    cursor.execute("UPDATE `citas` SET `cit_id`= 1,`con_id`=1,`cit_lugar`='lugar',`cit_fecha`='00/00/0000',`cit_hora`= '00:00:00',`cit_descripcion`= 'descripcion' WHERE `cit_id` = 8")
-    data = cursor.fetchall()
-    return redirect("/citas")
+    if request.method == 'POST':
+        id = request.form["id"]
+        lugar = request.form["lugar"]
+        fecha = request.form["fecha"]
+        hora = request.form["hora"]
+        descripcion = request.form["descripcion"] 
+        cursor.execute("UPDATE `citas` SET `cit_lugar`=%s,`cit_fecha`=%s,`cit_hora`=%s,`con_descripcion`=%s WHERE `cit_id`=%s",(lugar,fecha,hora,descripcion,id))
+        conn.commit()
+        return redirect(url_for('ver_citas'))
+    else:
+        id = request.args["id"]
+        cursor.execute("SELECT 'con_id' , 'cit-lugar' , 'cit_fecha' , 'cit_hora' , 'cit_descripcion' FROM citas WHERE cit_id = "+id)
+        citas = cursor.fetchone()
+        return render_template('modcita.html', citas = citas)
+
+
+@app.route('/eliminarcita')
+def eliminar_cita():
+    if request.method == 'GET':
+        id = request.args["id"]
+        cursor.execute("DELETE FROM `citas` WHERE cit_id = "+ id)
+        conn.commit()
+        return redirect(url_for('ver_citas'))
 
 if __name__ == '__main__':
     app.run(debug=True)
