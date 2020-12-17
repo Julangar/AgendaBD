@@ -110,7 +110,7 @@ def mod_contacto():
         return redirect(url_for('ver_contactos'))
     else:
         id = request.args["id"]
-        cursor.execute("SELECT `usu_id`,`con_nombre`,`con_apellido`,`con_direccion`,`con_telefono`,`con_email` FROM contactos WHERE con_id = "+id)
+        cursor.execute("SELECT `con_id`,`con_nombre`,`con_apellido`,`con_direccion`,`con_telefono`,`con_email` FROM contactos WHERE `con_id` = "+id)
         contacto = cursor.fetchone()
         return render_template('modcon.html', contacto = contacto)
 
@@ -132,7 +132,7 @@ def agregarcita():
         hora = request.form["hora"]
         descripcion = request.form["descripcion"] 
         cursor.execute("INSERT INTO `citas`(`con_id`, `cit_lugar`, `cit_fecha`, `cit_hora`, `cit_descripcion`)" +
-                    "VALUES (%s,%s,%s,%s,%s,%s)",(conid,lugar,fecha,hora,descripcion))
+                    "VALUES (%s,%s,%s,%s,%s)",(conid,lugar,fecha,hora,descripcion))
         conn.commit()
         return redirect(url_for('ver_citas'))
     else:
@@ -147,14 +147,14 @@ def modcit():
         fecha = request.form["fecha"]
         hora = request.form["hora"]
         descripcion = request.form["descripcion"] 
-        cursor.execute("UPDATE `citas` SET `cit_lugar`=%s,`cit_fecha`=%s,`cit_hora`=%s,`con_descripcion`=%s WHERE `cit_id`=%s",(lugar,fecha,hora,descripcion,id))
+        cursor.execute("UPDATE `citas` SET `cit_lugar`=%s,`cit_fecha`=%s,`cit_hora`=%s,`cit_descripcion`=%s WHERE `cit_id`=%s",(lugar,fecha,hora,descripcion,id))
         conn.commit()
         return redirect(url_for('ver_citas'))
     else:
         id = request.args["id"]
-        cursor.execute("SELECT 'con_id' , 'cit-lugar' , 'cit_fecha' , 'cit_hora' , 'cit_descripcion' FROM citas WHERE cit_id = "+id)
+        cursor.execute("SELECT `cit_id` , `con_id` , `cit_lugar` , `cit_fecha` , `cit_hora` , `cit_descripcion` FROM citas WHERE `cit_id` = "+id)
         citas = cursor.fetchone()
-        return render_template('modcita.html', citas = citas)
+        return render_template('modcit.html', citas = citas)
 
 
 @app.route('/eliminarcita')

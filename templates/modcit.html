@@ -4,14 +4,15 @@
     <head></head>
     <body class="fondo">
         <form action = "{{request.path}}" method="POST">
-            <input type="hidden" id="id" name="id" value="{{ cita[0] }}">
+            <input type="hidden" id="id" name="id" value="{{ citas[0] }}">
             <label for = "lugar">Lugar</label>
-            <input type="text" id ="lugar" name ="lugar" value="{{ cita[2] }}"/><br>
+            <input type="text" id ="lugar" name ="lugar" value="{{ citas[2] }}"/><br>
             <label for = "fecha">Fecha</label>
-            <input type="date" id ="fecha" name ="fecha" value="{{ cita[3] }}"/><br>
+            <input type="date" id ="fecha" name ="fecha" value="{{ citas[3] }}"/><br>
             <label for = "hora">Hora</label>
-            <input type="text" id ="hora" name = "hora" value="{{ cita[4] }}"/><br>
+            <input type="text" id ="hora" name = "hora" value="{{ citas[4] }}"/><br>
             <label for = "descripcion">Descripcion</label>
+            <input type="text" id ="descripcion" name = "descripcion" value="{{ citas[5] }}"/><br>
             <input type="submit" value="Enviar">
         </form>
         <button class="boton"><a href="{{ url_for('menu') }}">Regresar al menu</a></button>
