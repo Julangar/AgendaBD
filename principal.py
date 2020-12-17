@@ -139,7 +139,7 @@ def agregarcita():
         return render_template('agregarcit.html')
 
 
-@app.route('/modcit', methoss = ['GET','POST'])
+@app.route('/modcit', methods = ['GET','POST'])
 def modcit():
     if request.method == 'POST':
         id = request.form["id"]
