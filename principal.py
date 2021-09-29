@@ -83,7 +83,7 @@ def ver_contactos():
 @app.route('/citas')
 def ver_citas():
     person.ver=False
-    cursor.execute("SELECT T.cit_fecha, T.cit_hora T.cit_lugar, C.con_nombre from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+    cursor.execute("SELECT T.cit_fecha, T.cit_hora, T.cit_lugar, C.con_nombre from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
     data = cursor.fetchall()
     return render_template('citas.html',citas = data)
 
