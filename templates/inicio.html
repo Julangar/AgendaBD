@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
+<html>
+    <head>
+        Pagina inicio
+    </head>
+    <body class="menu">
+        <h1 align="center">¡Bienvenid@ a ACP tu calendario de confianza!</h1>
+        <div align="center">
+            <label for = "conid">Ingresar</label>
+            <form action="{{ url_for('ver_menu') }}" method="POST">
+                <input type="text" value="usuario" id="usuario" name="usuario" />
+                <input type="password" value="clave" id="clave" name="clave" />
+                <button class="boton">Ingresar</a></button>
+
+            </form>
+        </div>
+        <div align="center">
+            <button class="boton"><a href="{{ url_for('agregar_usuario') }}">Registrar</a></button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/estilos.css') }}" rel="stylesheet" type="text/css">
+<html>
+    <head></head>
+    <body class="menu">
+        <h1 align="center">Menu</h1>
+        <div align="center">
+            <button class="boton"><a href="{{ url_for('ver_usuarios') }}">Usuarios</a></button>
+            <button class="boton"><a href="{{ url_for('ver_contactos') }}">Contactos</a></button>
+            <button class="boton"><a href="{{ url_for('ver_citas') }}">Citas</a></button>
+            <button class="boton"><a href="{{ url_for('ver_todos') }}">Todos</a></button>
+        </div>
+    </body>
+</html>

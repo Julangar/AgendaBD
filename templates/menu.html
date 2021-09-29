@@ -5,10 +5,12 @@
     <body class="menu">
         <h1 align="center">Menu</h1>
         <div align="center">
-            <button class="boton"><a href="{{ url_for('ver_usuarios') }}">Usuarios</a></button>
             <button class="boton"><a href="{{ url_for('ver_contactos') }}">Contactos</a></button>
             <button class="boton"><a href="{{ url_for('ver_citas') }}">Citas</a></button>
-            <button class="boton"><a href="{{ url_for('ver_todos') }}">Todos</a></button>
+            
+        </div>
+        <div>
+            <button class="boton"><a href="{{ url_for('inicio') }}">Salir</a></button>
         </div>
     </body>
 </html>
