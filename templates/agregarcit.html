@@ -3,6 +3,18 @@
 <html>
     <head></head>
     <body class="fondo">
+        <table>
+            <tr>
+                <th class="table">Id Contacto</th>
+                <th class="table">Contacto</th>
+            </tr>
+            {%for u in contactos%}
+            <tr>
+                <td class="table">{{u[0]}}</td>
+                <td class="table">{{u[1]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
         <form action = "{{request.path}}" method="POST">
             <label for = "conid">Id Contacto</label>
             <input type="number" id ="conid" name ="conid"/><br>

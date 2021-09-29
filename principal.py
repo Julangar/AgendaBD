@@ -55,14 +55,21 @@ def ver_menu():
                         cursor.execute("SELECT usu_id FROM usuarios WHERE usu_nombre='"+nombre+"';")     
                         persona = cursor.fetchone()
                         person.guardar(nombre,int(''.join(map(str,persona))))
-                        return render_template('menu.html')
+                        cursor.execute("SELECT DISTINCT T.cit_id, concat(concat(C.con_nombre, ' '),C.con_apellido), T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+                        data = cursor.fetchall() 
+                        return render_template('menu.html', citas = data)
                     else:
                         return render_template('error.html')
         else:
             return render_template('inicio.html')
     else:    
         return render_template('menu.html')
-
+@app.route('/menuusu', methods = ['GET','POST'])
+def ver_menuusu():
+    person.ver=False
+    cursor.execute("SELECT DISTINCT concat(concat(C.con_nombre, ' '),C.con_apellido), T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+    data = cursor.fetchall()
+    return render_template('menuusu.html',citas = data)
 
 @app.route('/usuarios')
 def ver_usuarios():
@@ -83,8 +90,8 @@ def ver_contactos():
 @app.route('/citas')
 def ver_citas():
     person.ver=False
-    cursor.execute("SELECT DISTINCT T.cit_id, C.con_nombre, T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
-    data = cursor.fetchall()
+    cursor.execute("SELECT DISTINCT concat(concat(C.con_nombre, ' '),C.con_apellido), T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+    data = cursor.fetchall() #, citas = data
     return render_template('citas.html',citas = data)
 
 
@@ -198,6 +205,8 @@ def eliminar_contacto():
 @app.route('/agregarcita', methods = ['GET','POST'])
 def agregarcita():
     person.ver=False
+    cursor.execute("SELECT con_id,concat(concat(con_nombre, ' '),con_apellido) from contactos WHERE usu_id='"+str(person.id)+"';")
+    data = cursor.fetchall()
     if request.method == 'POST':
         conid = request.form["conid"]
         lugar = request.form["lugar"]
@@ -209,7 +218,7 @@ def agregarcita():
         conn.commit()
         return redirect(url_for('ver_citas'))
     else:
-        return render_template('agregarcit.html')
+        return render_template('agregarcit.html', contactos = data)
 
 
 @app.route('/modcit', methods = ['GET','POST'])
