@@ -90,7 +90,7 @@ def ver_contactos():
 @app.route('/citas')
 def ver_citas():
     person.ver=False
-    cursor.execute("SELECT DISTINCT concat(concat(C.con_nombre, ' '),C.con_apellido), T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+    cursor.execute("SELECT DISTINCT T.cit_id, concat(concat(C.con_nombre, ' '),C.con_apellido), T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
     data = cursor.fetchall() #, citas = data
     return render_template('citas.html',citas = data)
 
