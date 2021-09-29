@@ -33,7 +33,7 @@ def inicio():
     return render_template('inicio.html')
 
 
-@app.route('/menu', methods = ['POST'])
+@app.route('/menu', methods = ['GET','POST'])
 def ver_menu():
     if person.ver==True:
         if request.method == 'POST':
@@ -83,7 +83,7 @@ def ver_contactos():
 @app.route('/citas')
 def ver_citas():
     person.ver=False
-    cursor.execute("SELECT T.cit_fecha, T.cit_hora, T.cit_lugar, C.con_nombre from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
+    cursor.execute("SELECT DISTINCT T.cit_id, C.con_nombre, T.cit_lugar, T.cit_fecha, T.cit_hora, T.cit_descripcion from citas T, contactos C, usuarios U WHERE C.usu_id='"+str(person.id)+"' AND C.con_id=T.con_id;")
     data = cursor.fetchall()
     return render_template('citas.html',citas = data)
 
@@ -151,14 +151,14 @@ def eliminar_usuario():
 def agregar_contacto():
     person.ver=False
     if request.method == 'POST':
-        usuid = request.form["usuid"]
+        """usuid = request.form["usuid"]"""
         nombre = request.form["nombre"]
         apellido = request.form["apellido"]
         direccion = request.form["direccion"]
         telefono = request.form["telefono"] 
         email = request.form["email"] 
         cursor.execute("INSERT INTO `contactos`(`usu_id`, `con_nombre`, `con_apellido`, `con_direccion`, `con_telefono`, `con_email`)" +
-                    "VALUES (%s,%s,%s,%s,%s,%s)",(usuid,nombre,apellido,direccion,telefono,email))
+                    "VALUES (%s,%s,%s,%s,%s,%s)",(str(person.id),nombre,apellido,direccion,telefono,email))
         conn.commit()
         return redirect(url_for('ver_contactos'))
     else:
